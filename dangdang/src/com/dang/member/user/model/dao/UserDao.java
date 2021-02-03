@@ -34,6 +34,7 @@ public class UserDao {
 				userMember = new UserMember();
 				userMember.setUserId(rset.getString("user_id"));
 				userMember.setPassword(rset.getString("password"));
+				userMember.setUserName(rset.getString("user_name"));
 				userMember.setKgName(rset.getString("kg_name"));
 				userMember.setClassName(rset.getString("class_name"));
 				userMember.setEmail(rset.getString("email"));
@@ -49,7 +50,7 @@ public class UserDao {
 		} finally {
 			jdt.close(rset, pstm);
 		}
-		System.out.println(userMember);
+		
 		return userMember;
 		
 	}

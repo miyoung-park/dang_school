@@ -96,8 +96,9 @@ public class SchoolController extends HttpServlet {
 	
 	protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
-		request.getRequestDispatcher("/WEB-INF/view/member/school/schoollogin.jsp").forward(request, response);;
+		request.getSession().removeAttribute("schoolMember"); //session에 저장된 정보 삭제 후 메인으로 이동
+		request.getRequestDispatcher("/WEB-INF/view/main/main.jsp").forward(request, response);
+		
 		
 		}
 	
