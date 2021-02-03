@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dang.common.code.ErrorCode;
+import com.dang.common.exception.ToAlertException;
 import com.dang.member.school.model.service.SchoolService;
 import com.dang.member.school.model.vo.SchoolMember;
 import com.google.gson.Gson;
@@ -44,7 +46,6 @@ public class SchoolController extends HttpServlet {
 		break;
 		case "schoolprofile.do" : viewSchoolProfile(request, response);
 		break;
-		
 		}
 	}
 
@@ -103,7 +104,7 @@ public class SchoolController extends HttpServlet {
 	
 	protected void viewSchoolPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/WEB-INF/view/mypage/schoolpage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/mypage/mypage.jsp").forward(request, response);
 	
 	}
 	

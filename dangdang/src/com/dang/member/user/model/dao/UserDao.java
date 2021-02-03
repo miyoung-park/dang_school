@@ -41,6 +41,7 @@ public class UserDao {
 				userMember.setPhoneNumber(rset.getString("phone_number"));
 				userMember.setNickname(rset.getString("nickname"));
 				userMember.setClassName(rset.getString("class_name"));
+				userMember.setGrade(rset.getString("grade"));
 			
 			}
 		} catch (SQLException e) {

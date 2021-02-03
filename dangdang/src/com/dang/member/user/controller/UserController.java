@@ -112,7 +112,7 @@ public class UserController extends HttpServlet {
 
 	protected void viewUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/WEB-INF/view/mypage/userpage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/mypage/mypage.jsp").forward(request, response);
 		
 		
 	}

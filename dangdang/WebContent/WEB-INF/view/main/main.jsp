@@ -36,7 +36,6 @@
 								<c:choose>
 									<c:when test ="${sessionScope.schoolMember != null}"><li><a href="/school/schoolpage.do">마이페이지</a></li></c:when>
 									<c:when test ="${sessionScope.userMember != null}"><li><a href="/user/userpage.do">마이페이지</a></li></c:when>
-									<c:otherwise><li><a href= "#" onclick="mypageError(); return false">마이페이지</a></li></c:otherwise>
 								</c:choose>
 								<li><a href="/map/map.do">유치원찾기</a></li>
 								<li><a href="#">캘린더</a></li>
@@ -58,7 +57,7 @@
 					<section id="banner">
 						<div class="inner">
 							<h2 class="mainfont">댕댕아 놀면 뭐하니?</h2>
-							<p > ${sessionScope.schoolMember.kgName}님 안녕하세요 !</p>
+							<p > ${sessionScope.schoolMember.kgName}님 안녕하세요!</p>
 						</div>
 					</section>	
 				</c:when>
@@ -66,7 +65,7 @@
 					<section id="banner">
 						<div class="inner">
 							<h2 class="mainfont">댕댕아 놀면 뭐하니?</h2>
-							<p> ${sessionScope.userMember.nickname}님의 반려동물이 오늘 어떤 하루를 보냈을지 확인해보세요 ! </p>
+							<p> 안녕하세요. ${sessionScope.userMember.nickname}님! <br> ${sessionScope.userMember.nickname}님의 반려동물이 <br>오늘 어떤 하루를 보냈을지 확인해보세요 ! </p>
 						</div>	
 					</section>
 				</c:when>	
