@@ -63,7 +63,7 @@
 				<button onclick="login()" id="login_btn">로그인</button>
 				<span id = "user_moreselect">
 					<a href ="/user/join.do" id="join_btn"> 회원가입하기</a>
-					<a href ="#" id="find_info">아이디/비밀번호 찾기</a>
+					<a href ="/user/finduserinfo.do" id="find_info">아이디/비밀번호 찾기</a>
 				</span>
 			</div>
 		</section>

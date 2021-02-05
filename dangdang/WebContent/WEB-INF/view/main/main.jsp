@@ -91,7 +91,7 @@
 							<header class="major">
 								<div class="main_login_box">
 									<div class="main_login">
-										<a href="/user/login.do">견주 로그인<br><br>-----------<br><br>회원가입하기</a>
+										<a href="/user/login.do">견주 로그인</a>
 									</div>
 									<div class="main_login">
 										<a href="/school/login.do">업주 로그인</a>

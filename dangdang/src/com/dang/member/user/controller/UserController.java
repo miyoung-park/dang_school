@@ -1,10 +1,10 @@
 package com.dang.member.user.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
+
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dang.member.school.model.service.SchoolService;
+
 import com.dang.member.user.model.service.UserService;
 import com.dang.member.user.model.vo.UserMember;
 import com.google.gson.Gson;
@@ -53,7 +53,12 @@ public class UserController extends HttpServlet {
 			break;
 		case "userprofile.do" : viewProfile(request, response);
 			break;
-		
+		case "finduserinfo.do" : findUserInfo(request, response);
+			break;
+		case "finduserid.do" : findUserIdImpl(request, response);
+			break;
+		case "finduserpw.do" : findUserPwImpl(request, response);
+			break;
 		
 		
 		
@@ -127,17 +132,13 @@ public class UserController extends HttpServlet {
 		String email = request.getParameter("email");
 		String phone = request.getParameter("tell");
 		String nick = request.getParameter("nickname");
-		String birthday = request.getParameter("birth");
+		String birth = request.getParameter("birth");
 		String kinder = request.getParameter("kinder");
 		String className = request.getParameter("classname");
-		System.out.println(birthday);
-		Date birth = null;
-		try {
-			birth = new SimpleDateFormat("yyyy-mm-dd").parse(birthday);
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
+		
+		//String birth를 java.sql.Date로 형변환해주는 단계
+		java.sql.Date birthday = java.sql.Date.valueOf(birth);
+		
 		
 		userMember.setUserId(userId);
 		userMember.setPassword(password);
@@ -145,11 +146,11 @@ public class UserController extends HttpServlet {
 		userMember.setEmail(email);
 		userMember.setPhoneNumber(phone);
 		userMember.setNickname(nick);
-		userMember.setBirth(birth);
+		userMember.setBirth(birthday);
 		userMember.setKgName(kinder);
 		userMember.setClassName(className);
 	
-		System.out.println(userMember);
+		
 		int res = userService.insertuserMember(userMember);
 		
 		if(res > 0) {
@@ -193,6 +194,26 @@ protected void idCheck(HttpServletRequest request, HttpServletResponse response)
 	protected void viewProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.getRequestDispatcher("/WEB-INF/view/member/user/userprofile.jsp").forward(request, response);
+		
+		
+	}
+	
+	protected void findUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getRequestDispatcher("/WEB-INF/view/member/user/finduserinfo.jsp").forward(request, response);
+		
+		
+	}
+	
+	protected void findUserIdImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+	}
+	
+	protected void findUserPwImpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	
 		
 		
 	}

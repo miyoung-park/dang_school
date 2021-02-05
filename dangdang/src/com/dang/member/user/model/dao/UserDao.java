@@ -1,7 +1,6 @@
 package com.dang.member.user.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -160,7 +159,7 @@ public class UserDao {
 			pstm.setString(2, userMember.getPassword());
 			pstm.setString(3, userMember.getUserName());
 			pstm.setString(4, userMember.getEmail());
-			pstm.setDate(5, (Date)userMember.getBirth());
+			pstm.setDate(5, (java.sql.Date) userMember.getBirth());
 			pstm.setString(6, userMember.getPhoneNumber());
 			pstm.setString(7, userMember.getNickname());
 			pstm.setString(8, userMember.getClassName());

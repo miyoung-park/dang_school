@@ -46,7 +46,7 @@ public class AuthFilter implements Filter {
 					if (session.getAttribute("userMember") == null) {
 						throw new ToAlertException(ErrorCode.AUTH01);
 					} 
-					break; //굳이 안해도 될 것 같아서 보류 
+					break; 
 					
 				case "joinimpl.do":
 					if (session.getAttribute("persistUser") == null) {
@@ -65,7 +65,7 @@ public class AuthFilter implements Filter {
 					if (session.getAttribute("schoolMember") == null) {
 						throw new ToAlertException(ErrorCode.AUTH01);
 					}
-					break; //굳이 안해도 될 것 같아서 보류
+					break; 
 				}
 
 				break;

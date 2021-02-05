@@ -1127,7 +1127,9 @@ body.is-mobile.landing .user_profile{
 #join_table input{
     border: solid 1px;
     margin: 10px 0;
+   
 }
+
 
 
 #join_btn_part{
@@ -1149,11 +1151,7 @@ body.is-mobile.landing .user_profile{
 
 
 
-#join_table input{
-	border: solid 1px;
-	margin-bottom: 10px;
-	
-}
+
 
 .school_board {
 	background-color: white;
@@ -1554,3 +1552,76 @@ body.is-mobile.landing .user_profile{
 	fon-size: 0.5;
 	margin-top: 5px;
 }
+
+#join_table placeholder{
+	font-size: 0.5vw;
+}
+
+/* find part */
+
+.find_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 35vw;
+    min-height: 60vh;
+    margin: auto;
+    border: solid 1px;
+    border-radius: 3%;
+   
+}
+
+
+.find_info div {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 25vw;
+    height: 20vh;
+    border: solid 1px grey;
+
+}
+
+.find_info input{
+	margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.find_info button{
+	height: 3vh;
+	background-color: #8B4513;
+	color: white;
+	border: 1.2px solid black;
+	cursor: pointer;
+	font-family: 'Gamja Flower', cursive;
+	font-size: 1vh;
+	border-radius: 5%;
+	
+}
+
+#form_find_id {
+    
+    margin: auto;
+}
+
+#form_find_pw {
+    
+    margin: auto;
+}
+
+#find_id_btn {
+   
+    text-align: center;
+}
+
+
+#find_user_title{
+	text-align: center;
+	margin-top: 20px;
+	font-family: 'Jua', sans-serif;
+	color: #8B4513;
+	font-size: 2.3vw;
+}
+
+
+

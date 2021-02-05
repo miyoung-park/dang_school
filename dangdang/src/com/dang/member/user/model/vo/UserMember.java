@@ -1,6 +1,6 @@
 package com.dang.member.user.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class UserMember {
 	
