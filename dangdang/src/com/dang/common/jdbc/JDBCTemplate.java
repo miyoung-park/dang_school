@@ -35,7 +35,7 @@ public class JDBCTemplate {
 
 	//Connection 객체를 만들 메서드
 	public Connection getConnection() {
-	   // String url = "jdbc:oracle:thin:@psuny1031_medium?TNS_ADMIN=C:/CODE/wallet/Wallet_psuny1031";
+	    //String url = "jdbc:oracle:thin:@psuny1031_medium?TNS_ADMIN=C:/CODE/wallet/Wallet_psuny1031";
 				String url = "jdbc:oracle:thin:@psuny1031_medium?TNS_ADMIN=/Users/miyoung/07_semi_wallet/Wallet_psuny1031";								
 		String user = "ADMIN";
 		String password = "Park10031212*";
@@ -95,7 +95,6 @@ public class JDBCTemplate {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

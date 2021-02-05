@@ -37,7 +37,7 @@
 									<c:when test ="${sessionScope.schoolMember != null}"><li><a href="/school/schoolpage.do">마이페이지</a></li></c:when>
 									<c:when test ="${sessionScope.userMember != null}"><li><a href="/user/userpage.do">마이페이지</a></li></c:when>
 								</c:choose>
-								<li><a href="/map.do">유치원 찾기</a></li>
+								<li><a href="/map/map.do">유치원 찾기</a></li>
 								<li><a href="#">캘린더</a></li>
 								<c:choose>
 									<c:when test ="${sessionScope.schoolMember != null}"><li><a href="/school/logout.do">로그아웃</a></li></c:when>
@@ -59,18 +59,14 @@
 	<!-- Main -->
 
 		<div class="board">
-		
 			<div class="reviewWrap">
-				<form action="${context}/review/upload.do" method="post" enctype="multipart/form-data">
-
+				<form action="${context}/review/upload.do?kgName=${kgName}" method="post" enctype="multipart/form-data">
 					<div class="formWrap">
-
-						<input id="titleInput" type="text" name="title" required="required" placeholder="제목을 입력해주세요." />
+						<input id="titleInput" type="text" name="title" required="required" placeholder="제목을 입력해주세요." maxlength="10"/>
 						<!--multiple : 여러개 파일 선택을 허용하는 속성-->
 						<input id="file" type="file" name="files" multiple />
 						<textarea id="content" class="board-content" name="content"> </textarea>
 						<div id="btnWrap">
-							<button id="reviewList" class = "btn">목록</button>
 							<button id="submit" class = "btn">등록</button>
 						</div>
 					</div>

@@ -1,7 +1,10 @@
 package com.dang.member.user.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -35,17 +38,22 @@ public class UserController extends HttpServlet {
 		String[] uriArr = uri.split("/");
 		switch(uriArr[uriArr.length-1]){
 		case "login.do" : login(request, response);
-		break;
+			break;
 		case "loginimpl.do" : loginImpl(request, response);
-		break;
+			break;
 		case "logout.do" : logout(request, response);
-		break;
+			break;
 		case "join.do" : join(request, response);
-		break;
+			break;
+		case "joinimpl.do" : joinimpl(request, response);
+			break;
+		case "idcheck.do" : idCheck(request, response);
+			break;
 		case "userpage.do" : viewUserPage(request, response);
-		break;
+			break;
 		case "userprofile.do" : viewProfile(request, response);
-		break;
+			break;
+		
 		
 		
 		
@@ -110,6 +118,67 @@ public class UserController extends HttpServlet {
 		
 	}
 	
+	protected void joinimpl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		UserMember userMember = new UserMember();
+		String userId = request.getParameter("id");
+		String password = request.getParameter("pw");
+		String userName = request.getParameter("username");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("tell");
+		String nick = request.getParameter("nickname");
+		String birthday = request.getParameter("birth");
+		String kinder = request.getParameter("kinder");
+		String className = request.getParameter("classname");
+		System.out.println(birthday);
+		Date birth = null;
+		try {
+			birth = new SimpleDateFormat("yyyy-mm-dd").parse(birthday);
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		
+		userMember.setUserId(userId);
+		userMember.setPassword(password);
+		userMember.setUserName(userName);
+		userMember.setEmail(email);
+		userMember.setPhoneNumber(phone);
+		userMember.setNickname(nick);
+		userMember.setBirth(birth);
+		userMember.setKgName(kinder);
+		userMember.setClassName(className);
+	
+		System.out.println(userMember);
+		int res = userService.insertuserMember(userMember);
+		
+		if(res > 0) {
+			response.getWriter().println("success");
+		} else {
+			response.getWriter().println("fail");
+			
+		}
+	}
+	
+protected void idCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//클라이언트가 application/x-www-form-urlencoded 컨텐츠 타입으로 보낼 것이기 떄문에 (form을 통해 넘길때, 넘어오는 타입이다.)
+		//이전과 동일하게 서블릿 코드 작성
+	
+		String userId = request.getParameter("userId"); //userId값으로 넘어올거라고 우리가 정해준 것
+		UserMember userMember = userService.selectUserById(userId);
+		
+		//userMember가 null이면 없는거고 null이 아니라면 있는 것 !
+		//id가 있으면 안되는 상황이기 때문에..
+		if(userMember == null) {
+			response.getWriter().print("available");//사용가능
+		}else {
+			response.getWriter().print("unavailable");//사용불가
+		}
+		
+		
+		
+	}
+	
 
 	protected void viewUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -127,6 +196,8 @@ public class UserController extends HttpServlet {
 		
 		
 	}
+	
+
 	
 	
 	

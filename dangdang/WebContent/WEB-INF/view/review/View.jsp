@@ -38,7 +38,7 @@
 									<c:when test ="${sessionScope.schoolMember != null}"><li><a href="/school/schoolpage.do">마이페이지</a></li></c:when>
 									<c:when test ="${sessionScope.userMember != null}"><li><a href="/user/userpage.do">마이페이지</a></li></c:when>
 								</c:choose>
-								<li><a href="/map.do">유치원 찾기</a></li>
+								<li><a href="/map/map.do">유치원 찾기</a></li>
 								<li><a href="#">캘린더</a></li>
 								<c:choose>
 									<c:when test ="${sessionScope.schoolMember != null}"><li><a href="/school/logout.do">로그아웃</a></li></c:when>
@@ -61,53 +61,38 @@
 
 		<div class="board">
 		
-		 <div id = "kinderWrap"><p id= "kinder">바우라움 유치원</p></div>
-		 
-			<div class="reviewWrap">
-				<div class="dataWrap fristWrap">
-					<div class="wrap">
-						<div class="user data">장군짱</div>
-						<div class="title data">유치원 좋아여</div>
-						<div class="date data">2021/01/31</div>
-						<div class="contentWrap">
-							<textarea
-								class="content" readonly="readonly">강지지아짊ㄴ아린아리나이라닝라ㅣㅁㄴㅇ린앎ㄴ아림ㄴㅇ린아린아리ㅏㅁㄴ이람ㄴ이라민아린망림나일나ㅣㄹㄴ림나임나ㅣㄴㅇ라ㅣ</textarea>
-						</div>
-					</div>
-					<div class="photo"></div>
-				</div>
-				
-				<div class="dataWrap fristWrap">
-					<div class="wrap">
-						<div class="user data">장군짱</div>
-						<div class="title data">유치원 좋아여</div>
-						<div class="date data">2021/01/31</div>
-						<div class="contentWrap">
-							<textarea
-								class="content" readonly="readonly">강지지아짊ㄴ아린아리나이라닝라ㅣㅁㄴㅇ린앎ㄴ아림ㄴㅇ린아린아리ㅏㅁㄴ이람ㄴ이라민아린망림나일나ㅣㄹㄴ림나임나ㅣㄴㅇ라ㅣ</textarea>
-						</div>
-					</div>
-					<div class="photo"></div>
-				</div>
-				
-				
-				<div class="dataWrap fristWrap">
-					<div class="wrap">
-						<div class="user data">장군짱</div>
-						<div class="title data">유치원 좋아여</div>
-						<div class="date data">2021/01/31</div>
-						<div class="contentWrap">
-							<textarea
-								class="content" readonly="readonly">강지지아짊ㄴ아린아리나이라닝라ㅣㅁㄴㅇ린앎ㄴ아림ㄴㅇ린아린아리ㅏㅁㄴ이람ㄴ이라민아린망림나일나ㅣㄹㄴ림나임나ㅣㄴㅇ라ㅣ</textarea>
-						</div>
-					</div>
-					<div class="photo"></div>
-				</div>
-				
-				
-				
-				
-			</div>			
+		 <div id = "kinderWrap"><p id= "kinder">${kindergarten.kgName}</p></div><a href = "/review/write.do?kgName=${kindergarten.kgName}">후기 등록</a>
+		<c:choose>
+			<c:when test="${empty reviewList}">
+				<div id = "noReviewBox">등록된 후기가 없습니다 <a href = "/review/write.do?kgName=${kindergarten.kgName}">후기 등록</a></div>
+			</c:when>
+		<c:otherwise>
+		<c:forEach var="review" items = "${reviewList}">
+					<div class="reviewWrap">
+						<div class="dataWrap fristWrap">
+							<div class="wrap">
+								<div class="user data">${review.userName}</div>
+								<div class="title data">${review.title}</div>
+								<div class="date data">${review.regDate}</div>
+								<div class="contentWrap">
+									<textarea
+										class="content" readonly="readonly">${review.content}</textarea>
+								</div>
+							</div>
+							<c:if test="${!empty fileList}">
+							<c:forEach var="file" items = "${fileList}">
+							<div class="photo"><img id ="img" src="/${file.savePath}${file.renameFileName}">
+							</div>
+							</c:forEach> 
+							</c:if>
+						</div>			
+					</div>	
+				</c:forEach> 
+		</c:otherwise>
+		</c:choose>
+
+
+	
 		</div>
 
 		<!-- Footer -->

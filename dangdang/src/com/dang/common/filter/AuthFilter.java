@@ -42,28 +42,30 @@ public class AuthFilter implements Filter {
 			case "user":
 				// 2depth
 				switch (uriArr[2]) {
-				/*case "userpage.do":
+				/* case "userpage.do":
 					if (session.getAttribute("userMember") == null) {
 						throw new ToAlertException(ErrorCode.AUTH01);
 					} 
-					break; *///굳이 안해도 될 것 같아서 보류
+					break; //굳이 안해도 될 것 같아서 보류 
+					
 				case "joinimpl.do":
 					if (session.getAttribute("persistUser") == null) {
 						throw new ToAlertException(ErrorCode.AUTH02);
+					} else if(session.getAttribute("userMember") != null){
+						throw new ToAlertException(ErrorCode.AUTH01);
 					}
-					break;
+					break; */
 				}
-
 				break;
 				
 			case "school":
 				// 2depth
 				switch (uriArr[2]) {
-				/*case "schoolPage.do":
+				case "schoolPage.do":
 					if (session.getAttribute("schoolMember") == null) {
 						throw new ToAlertException(ErrorCode.AUTH01);
 					}
-					break;*/ //굳이 안해도 될 것 같아서 보류
+					break; //굳이 안해도 될 것 같아서 보류
 				}
 
 				break;
@@ -77,13 +79,26 @@ public class AuthFilter implements Filter {
 					if (session.getAttribute("user") == null) {
 						throw new ToAlertException(ErrorCode.AUTH03);
 					}
-
+					break;
 				case "upload.do":
 					if (session.getAttribute("user") == null) {
 						throw new ToAlertException(ErrorCode.AUTH03);
 					}
 				}
-				break;
+				break;	
+				case "review":
+					switch (uriArr[2]) {
+					case "write.do":
+						if (session.getAttribute("userMember") == null) {
+							throw new ToAlertException(ErrorCode.AUTH04);
+						}
+						break;
+					case "upload.do":
+						if (session.getAttribute("userMember") == null) {
+							throw new ToAlertException(ErrorCode.AUTH04);
+						}
+					}
+					break;
 			}
 		}
 
