@@ -1655,3 +1655,7 @@ body.is-mobile.landing .user_profile{
 #withdraw_btn{
 	margin-right: 45px;
 }
+
+#sort_school_service span{
+	display: contents;
+}

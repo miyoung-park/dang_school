@@ -27,7 +27,9 @@
 				alert('탈퇴한 회원입니다.');
 				location.href = '/user/login.do'
 			}else if(text == 'success'){
-				 location.href = urlToMyPage;	 
+				location.href = urlToMyPage;	 
+			}else if(text == 'servicefail'){
+				alert('유치원의 서비스 조회 중 문제 발생');
 			}
 		}).catch(error =>{
 			error.alertMsg();
@@ -205,10 +207,12 @@
 		schoolModifyObj.kgEmail = kgEmail.value;
 		schoolModifyObj.kgOperateTime = kgOperateTime.value;
 		schoolModifyObj.kgNotice = kgNotice.value;
+
 		let url = "/school/modifyinfo.do";		
 		let headerObj = new Headers();
 		headerObj.append("content-type", "application/x-www-form-urlencoded");
 		
+		console.dir(JSON.stringify(schoolModifyObj));
 		fetch(url, {
 			method:"post",
 			headers:headerObj,
@@ -221,14 +225,61 @@
 			
 		}).then((text) => {
 			if(text == 'fail'){
-				alert('유치원정보 수정중 오류가 발생하였습니다.');
+				alert('유치원정보 업데이트 중 오류가 발생하였습니다.');
 			}else if(text =='success'){
-				alert('유치원정보가 성공적으로 수정되었습니다.');
+				alert('유치원정보가 성공적으로 업데이트 되었습니다.');
 				location.href= '/school/schoolprofile.do';
 			}else{
-				alert('유치원정보 수정중 오류발생');
+				alert('유치원정보 업데이트 중 오류발생');
 			}
 		})
+		
+		
+		
+	}
+	
+	
+	let schoolModifyService =() =>{
+		
+		let schoolServiceObj = new Object();
+		schoolServiceObj.kgName = kgNameForService.value;
+		console.dir(kgName.value);
+		schoolServiceObj.isKg = isKg.value;
+		schoolServiceObj.isCafe = isCafe.value;
+		schoolServiceObj.isHotel = isHotel.value;
+		schoolServiceObj.isPickup = isPickup.value;
+		schoolServiceObj.isMedic = isMedic.value;
+		schoolServiceObj.isAcademy = isAcademy.value;
+		schoolServiceObj.isSpa = isSpa.value;
+		
+		let url ="/school/modifyservice.do"
+		
+		let headerObj = new Headers();
+		headerObj.append("content-type", "application/x-www-form-urlencoded");
+		
+		fetch(url, {
+			method:"post",
+			headers:headerObj,
+			body:"schoolModifyService="+JSON.stringify(schoolServiceObj)
+		}).then(response =>{
+			if(response.ok){
+				return response.text();
+			}
+		}).then((text) =>{
+			if(text == 'fail'){
+				alert('유치원 서비스 업데이트가 실패하였습니다.');
+			}else if(text =='seccess'){
+				alert('유치원 서비스가 성공적으로 업데이트 되었습니다.');
+				location.href = "/school/schoolprofile.do"
+				
+			}else{
+				alert('유치원정보 업데이트 중 오류발생');
+			}
+		})
+		
+		
+		
+		
 		
 		
 		

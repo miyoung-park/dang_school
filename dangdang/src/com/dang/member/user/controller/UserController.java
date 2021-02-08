@@ -107,6 +107,7 @@ public class UserController extends HttpServlet {
 		if(userMember != null) {
 			if(userMember.getIsleave() != 1) {
 				request.getSession().setAttribute("userMember" , userMember); //회원정보가 있을 경우 해당 내용을 session에 저장.
+				request.setAttribute("alertMsg", "'댕댕아 놀면 뭐하니?'에 오신걸 환영합니다.");
 				response.getWriter().print("success"); 
 					
 			}else if(userMember.getIsleave() == 1){
@@ -303,6 +304,7 @@ protected void idCheck(HttpServletRequest request, HttpServletResponse response)
 			userMember.setKgName(kgName);
 			request.getSession().setAttribute("userMember", userMember);
 			response.getWriter().print("success");
+			
 			
 		} else {
 			response.getWriter().print("fail");
