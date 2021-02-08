@@ -100,7 +100,7 @@
 	<script src="../../../../resources/js/main.js"></script>
 	<script src="../../../../resources/js/member.js"></script>
 	<script src="${context}resources/js/commmon/asyncPageError.js"></script>
-	<script type="text/javascript"> const urlToLogoin = '/school/loginimpl.do';</script>
+	<script type="text/javascript"> const urlToLogin = '/school/loginimpl.do';</script>
 	<script type="text/javascript"> const urlToMyPage = '/school/schoolpage.do';</script>
 	
 	

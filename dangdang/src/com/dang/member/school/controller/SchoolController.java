@@ -53,6 +53,8 @@ public class SchoolController extends HttpServlet {
 			break;
 		case "findschoolpw.do" : findSchoolPwImpl(request, response);
 			break;
+		case "modifyinfo.do" : modifySchoolInfo(request, response);
+			break;
 		}
 	}
 
@@ -157,6 +159,42 @@ public class SchoolController extends HttpServlet {
 		
 		
 	
+	}
+	
+	protected void modifySchoolInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int res = 0;
+		String modifyInfo = request.getParameter("schoolModifyInfo");
+		Map modifyInfoMap = gson.fromJson(modifyInfo, Map.class);
+		String kgId = (String) modifyInfoMap.get("kgId");
+		String kgName = (String) modifyInfoMap.get("kgName");
+		String kgAddress = (String) modifyInfoMap.get("kgAddress");
+		String kgTell = (String) modifyInfoMap.get("kgTell");
+		String kgOperateTime = (String) modifyInfoMap.get("kgOperateTime");
+		String kgNotice = (String) modifyInfoMap.get("kgNotice");
+		String kgEmail = (String) modifyInfoMap.get("kgEmail");
+
+		
+		res = schoolService.modifySchoolInfo(kgId, kgName, kgAddress, kgTell, kgOperateTime, kgNotice, kgEmail);
+	
+		if(res > 0) {
+			
+			SchoolMember schoolMember = new SchoolMember();
+			schoolMember.setKgId(kgId);
+			schoolMember.setKgName(kgName);
+			schoolMember.setKgAddress(kgAddress);
+			schoolMember.setKgTell(kgTell);
+			schoolMember.setKgOperateTime(kgOperateTime);
+			schoolMember.setKgNotice(kgNotice);
+			schoolMember.setKgEmail(kgEmail);
+			request.getSession().setAttribute("schoolMember", schoolMember);
+			response.getWriter().print("success");
+			
+		}else {
+			response.getWriter().print("fail");
+		}
+		
+		
 	}
 	
 	

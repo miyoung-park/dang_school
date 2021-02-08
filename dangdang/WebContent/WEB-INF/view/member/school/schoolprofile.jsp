@@ -54,11 +54,14 @@
 		<!-- Main -->
 		<section class="myprofile_board">
 			<div class="school_info_form" id="school_profile">
-				<form action="${context}/school/info.do" method="post" id="school_modify_form">
+				<div id="school_modify_form">
 					<fieldset >
 						<div id="school_info_part">
 							<div id ="school_info_detail">
 								<ul id="school_modify_info">
+									<li><h3>아이디</h3>
+										<input type="text" value="${sessionScope.schoolMember.kgId}" id="kgId" name="kgId" readonly>
+									</li>
 									<li><h3>업체명</h3>
 										<input type="text" value="${sessionScope.schoolMember.kgName}" id="kgName" name="kgName" readonly>
 									</li>
@@ -68,6 +71,9 @@
 									<li><br><h3>전화번호</h3>
 										<input type ="text" value="${sessionScope.schoolMember.kgTell}" id="kgTell" name="kgTell">
 									</li>
+									<li><br><h3>이메일</h3>
+										<input type ="text" value="${sessionScope.schoolMember.kgEmail}" id="kgEmail" name="kgEmail">
+									</li>
 									<li><br><h3>운영시간</h3>
 										<input type ="text" value="${sessionScope.schoolMember.kgOperateTime}" id="kgOperateTime" name="kgOperateTime">
 									</li>
@@ -76,7 +82,7 @@
 									</li>
 									<li>
 										<div id="modify_part">
-											<button type="submit" id="school_modify_btn">기본 프로필수정</button>
+											<button type="submit" id="school_modify_btn" onclick ="schoolModifyInfo()">기본 프로필수정</button>
 										</div>
 									</li>
 								</ul>
@@ -84,7 +90,7 @@
 						</div>
 						
 					</fieldset>
-				</form>
+				</div>
 				
 				
 				<div id="separate_part">
@@ -92,13 +98,14 @@
 						<form action="${context}/school/profileservice.do" method="post" id="school_service_form">
 							<fieldset id="sort_school_service">
 								<h3>제공서비스</h3><br>
-						 		<label for ="isKg"><input type = "checkbox" id = "isKg" name ="service1"  value = "isKg"> 유치원</label>
-								<label for = "isCafe"><input type = "checkbox" id = "isCafe"  name ="service2" value = "isCafe"> 카페</label>
-								<label for = "isHotel"> <input type = "checkbox" id = "isHotel"  name ="service3" value = "isHotel"> 호텔</label>
-								<label for ="isPickup"><input type = "checkbox" id = "isPickup"  name ="service4" value = "isPickup"> 픽업서비스</label>
-								<label for = "isMedic"><input type = "checkbox" id = "isMedic"  name ="service5" value = "isMedic"> 메니컬센터</label>
-								<label for = "isAcademy"><input type = "checkbox" id = "isAcademy"  name ="service6" value = "isAcademy"> 아카데미</label>
-								<label for = "isSpa"><input type = "checkbox" id = "isSpa"  name ="service" value = "isSpa"> 스파</label>
+								
+						 		<label for ="isKg"><input type = "checkbox" id = "isKg" name ="isKg"  value = "isKg"> 유치원</label>
+								<label for = "isCafe"><input type = "checkbox" id = "isCafe"  name ="isCafe" value = "isCafe"> 카페</label>
+								<label for = "isHotel"> <input type = "checkbox" id = "isHotel"  name ="isHotel" value = "isHotel"> 호텔</label>
+								<label for ="isPickup"><input type = "checkbox" id = "isPickup"  name ="isPickup" value = "isPickup"> 픽업서비스</label>
+								<label for = "isMedic"><input type = "checkbox" id = "isMedic"  name ="isMedic" value = "isMedic"> 메니컬센터</label>
+								<label for = "isAcademy"><input type = "checkbox" id = "isAcademy"  name ="isAcademy" value = "isAcademy"> 아카데미</label>
+								<label for = "isSpa"><input type = "checkbox" id = "isSpa"  name ="isSpa" value = "isSpa"> 스파</label>
 						 		<button id="school_modify_btn">제공 서비스 수정</button>
 							</fieldset>
 						</form>

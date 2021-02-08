@@ -2,6 +2,7 @@ package com.dang.member.school.model.service;
 
 import java.sql.Connection;
 
+import com.dang.common.exception.DataAccessException;
 import com.dang.common.jdbc.JDBCTemplate;
 import com.dang.member.school.model.dao.SchoolDao;
 import com.dang.member.school.model.vo.SchoolMember;
@@ -55,6 +56,23 @@ public class SchoolService {
 		return res;
 		
 		
+	}
+	
+	public int modifySchoolInfo(String kgId, String kgName, String kgAddress, String kgTell, String kgOperateTime, String kgNotice, String kgEmail) {
+		
+		Connection conn = jdt.getConnection();
+		int res = 0;
+		
+		try {
+			res = schoolDao.modifySchoolInfo(conn, kgId, kgName, kgAddress, kgTell, kgOperateTime, kgNotice, kgEmail);
+			jdt.commit(conn);
+			
+		}catch(DataAccessException e){
+			jdt.rollback(conn);
+		}finally {
+			jdt.close(conn);
+		}
+		return res;
 	}
 	
 	

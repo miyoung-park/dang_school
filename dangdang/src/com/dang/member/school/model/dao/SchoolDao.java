@@ -45,6 +45,7 @@ public class SchoolDao {
 				schoolMember.setKgOperateTime(rset.getString("kg_operate_time"));
 				schoolMember.setKgNotice(rset.getString("kg_notice"));
 				schoolMember.setKgGrade(rset.getString("kg_grade"));
+				schoolMember.setKgEmail(rset.getString("kg_email"));
 			
 				
 
@@ -90,13 +91,41 @@ public class SchoolDao {
 				schoolMember.setKgGrade(rset.getString("kg_grade"));
 			}
 		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			throw new DataAccessException(ErrorCode.SM01, e);
 		}finally {
 			jdt.close(rset, pstm);;
 		}
 		
 		return schoolMember;
+		
+	}
+	
+	public int modifySchoolInfo(Connection conn, String kgId, String kgName, String kgAddress, String kgTell, String kgOperateTime, String kgNotice, String kgEmail ) {
+		
+		int res = 0;
+		PreparedStatement pstm = null;
+		String query = "update kindergarden set kg_name =?, kg_address=?, kg_tell=?, kg_operate_time=?, kg_notice=?, kg_email=? where kg_id = ?";
+		
+		try {
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, kgName);
+			pstm.setString(2, kgAddress);
+			pstm.setString(3, kgTell);
+			pstm.setString(4, kgOperateTime);
+			pstm.setString(5, kgNotice);
+			pstm.setString(6, kgEmail);
+			pstm.setString(7, kgId);
+			
+			res = pstm.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DataAccessException(ErrorCode.UM01, e);
+			
+		}finally {
+			jdt.close(pstm);
+		}
+
+		return res;
 		
 	}
 	
