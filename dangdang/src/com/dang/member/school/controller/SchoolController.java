@@ -38,27 +38,29 @@ public class SchoolController extends HttpServlet {
 		String[] uriArr = uri.split("/");
 		
 		switch(uriArr[uriArr.length-1]){
-		case "login.do" : login(request, response);
+		case "login.do" : login(request, response); //로그인 페이지 이동
 			break;
-		case "loginimpl.do" : loginImpl(request, response);
+		case "loginimpl.do" : loginImpl(request, response); //로그인 실행
 			break;
-		case "logout.do" : logout(request, response);
+		case "logout.do" : logout(request, response); //로그아웃 실행
 			break;
-		case "schoolpage.do" : viewSchoolPage(request, response);
+		case "schoolpage.do" : viewSchoolPage(request, response); //마이 페이지로 이동
 			break;
-		case "schoolprofile.do" : viewSchoolProfile(request, response);
+		case "schoolprofile.do" : viewSchoolProfile(request, response); //프로필 페이지 이동
 			break;
-		case "findschoolinfo.do" : findSchoolInfo(request, response);
+		case "findschoolinfo.do" : findSchoolInfo(request, response); //아이디,비번찾기 페이지 이동
 			break;
-		case "findschoolid.do" : findSchoolIdImpl(request, response);
+		case "findschoolid.do" : findSchoolIdImpl(request, response); //아이디 찾기 실행
 			break;
-		case "findschoolpw.do" : findSchoolPwImpl(request, response);
+		case "findschoolpw.do" : findSchoolPwImpl(request, response); //비번 찾기 실행
 			break;
-		case "modifyinfo.do" : modifySchoolInfo(request, response);
+		case "modifyinfo.do" : modifySchoolInfo(request, response); //기본정보 수정 실행
 			break;
-		case "modifyservice.do" : modifySchoolService(request, response);
+		case "modifyservice.do" : modifySchoolService(request, response); //서비스정보 수정 실행
 			break;
-		case "modifyphoto.do" : modifySchoolPhoto(request, response);
+		case "modifyphoto.do" : modifySchoolPhoto(request, response); //사진정보 업로드 및 수정 실행
+			break;
+		case "serviceModify.do" : serviceModify(request, response); //2021.02.09 현재 사용X
 			break;
 		}
 		
@@ -133,8 +135,6 @@ public class SchoolController extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/view/mypage/mypage.jsp").forward(request, response);
 	
 	}
-	
-	
 	
 	
 	
@@ -216,11 +216,13 @@ public class SchoolController extends HttpServlet {
 	
 	protected void modifySchoolService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int res = 0;
+		/*int res = 0;
 		String modifyService = request.getParameter("schoolModifyService");
 		Map modifyServiceMap = gson.fromJson(modifyService, Map.class);
 		String kgName = (String) modifyServiceMap.get("kgName");
 		System.out.println(kgName);
+		
+		
 		int isKg = Integer.parseInt((String)modifyServiceMap.get("isKg"));
 		int isCafe = Integer.parseInt((String)modifyServiceMap.get("isCafe"));
 		int isHotel = Integer.parseInt((String)modifyServiceMap.get("isHotel"));
@@ -231,7 +233,7 @@ public class SchoolController extends HttpServlet {
 		System.out.print(isKg +"," + isCafe +"," + isHotel +"," +isPickup +"," +isMedic +"," + isAcademy +"," + isSpa);
 		
 		res = schoolService.modifySchoolService(kgName, isKg, isCafe, isHotel, isPickup, isMedic, isAcademy, isSpa);
-		System.out.println("Controlle " + res);
+		System.out.println("Controller " + res);
 		if(res > 0) {
 			
 			Service schoolService = new Service();
@@ -244,11 +246,13 @@ public class SchoolController extends HttpServlet {
 			schoolService.setIsAcademy(isAcademy);
 			schoolService.setIsSpa(isSpa);			
 			System.out.println("schoolservice = " + schoolService);
-			request.getSession().setAttribute("schoolService", schoolService);
+			request.setAttribute("schoolService", schoolService);
 			response.getWriter().print("success");
 			
 			
-		}
+		} */
+		
+		String kgName = request.getParameter("kgName");
 		
 		
 	}
@@ -258,6 +262,14 @@ public class SchoolController extends HttpServlet {
 			
 			
 		}
+	
+	
+	//2021.02.09 현재 사용X
+	protected void serviceModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getRequestDispatcher("/WEB-INF/view/member/school/schoolservicepop.jsp").forward(request, response);
+	
+	}
 		
 	
 	
