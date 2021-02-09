@@ -1,9 +1,16 @@
 package com.dang.member.school.model.service;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.dang.common.exception.DataAccessException;
+import com.dang.common.exception.ToAlertException;
 import com.dang.common.jdbc.JDBCTemplate;
+import com.dang.common.util.file.FileUtil;
+import com.dang.common.util.file.FileVo;
 import com.dang.map.model.vo.Service;
 import com.dang.member.school.model.dao.SchoolDao;
 import com.dang.member.school.model.vo.SchoolMember;
@@ -122,6 +129,33 @@ public class SchoolService {
 		System.out.println("schoolServcie" + res);
 		return res ;
 		
+	}
+
+
+
+
+
+	public int uploadSchoolPhoto(String kgId, HttpServletRequest request) {
+		Connection conn = jdt.getConnection();
+		int res = 0;
+		//게시글 저장
+		Map<String,List> photoData = new FileUtil().fileUpload(request);
+		
+		
+		
+		try {
+			
+			for(FileVo fileData : (List<FileVo>)photoData.get("fileData")) {
+				schoolDao.uploadSchoolPhoto(conn, fileData);
+			}
+			jdt.commit(conn);
+		}catch(DataAccessException e) {
+			jdt.rollback(conn);
+			throw new ToAlertException(e.error,e);
+		}finally {
+			jdt.close(conn);
+		}
+		return res;
 	}
 	
 	

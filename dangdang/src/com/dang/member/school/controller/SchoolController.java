@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.dang.common.code.ErrorCode;
 import com.dang.common.exception.ToAlertException;
@@ -58,7 +59,7 @@ public class SchoolController extends HttpServlet {
 			break;
 		case "modifyservice.do" : modifySchoolService(request, response); //서비스정보 수정 실행
 			break;
-		case "modifyphoto.do" : modifySchoolPhoto(request, response); //사진정보 업로드 및 수정 실행
+		case "uploadphoto.do" : uploadSchoolPhoto(request, response); //사진정보 업로드 및 수정 실행
 			break;
 		case "serviceModify.do" : serviceModify(request, response); //2021.02.09 현재 사용X
 			break;
@@ -257,8 +258,20 @@ public class SchoolController extends HttpServlet {
 		
 	}
 	
-	protected void modifySchoolPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
+	protected void uploadSchoolPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				int res = 0;
+				//제목, 본문, 작성자(session), 첨부파일
+				//파일테이블 : 원본파일명, 리네임파일명, 게시글번호, 저장경로 
+				SchoolMember schoolMember = (SchoolMember)request.getSession().getAttribute("schoolMember");
+				System.out.println(schoolMember.getKgName());
+				res = schoolService.uploadSchoolPhoto(schoolMember.getKgIdx(), request);
+				
+				if(res > 0) {
+					request.setAttribute("alertMsg", "사진 등록이 완료되었습니다.");
+					request.setAttribute("url", "/school/schoolprofile.do");
+					request.getRequestDispatcher("/WEB-INF/view/common/result.jsp").forward(request, response);
+				}
+				
 			
 			
 		}

@@ -166,16 +166,16 @@
 							</fieldset>
 						</form>
 					</div>
-					<div action="${context}/school/profilephoto.do" method="post" id="school_photo_form">
+					<form action="${context}/school/uploadphoto.do" method="post" id="school_photo_form">
 						<div>
 							<h3>유치원사진</h3><br>
-							<label><input type ="file" id="kg_photo"></label>
+							<label><input type ="file" name ="files" id="kg_photo" multiple/></label>
 						</div>
 						<div id="photo_border">
 							사진 첨부
 						</div>
-						<button id="file_upload_btn" onclick="schoolModifyPhoto()">파일 업로드</button>
-					</div>
+						<button id="file_upload_btn">파일 업로드</button>
+					</form>
 				</div>
 			</div>
 		</section>

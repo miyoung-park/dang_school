@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.dang.common.code.ErrorCode;
 import com.dang.common.exception.DataAccessException;
 import com.dang.common.jdbc.JDBCTemplate;
+import com.dang.common.util.file.FileVo;
 import com.dang.map.model.vo.Service;
 import com.dang.member.school.model.vo.SchoolMember;
 
@@ -40,6 +41,7 @@ public class SchoolDao {
 				schoolMember = new SchoolMember();
 				schoolMember.setKgName(rset.getString("kg_name"));
 				schoolMember.setKgId(rset.getString("kg_id"));
+				schoolMember.setKgId(rset.getString("kg_idx"));
 				schoolMember.setKgPw(rset.getString("kg_pw"));
 				schoolMember.setKgAddress(rset.getString("kg_address"));
 				schoolMember.setKgTell(rset.getString("kg_tell"));
@@ -194,7 +196,41 @@ public int modifySchoolService(Connection conn, String kgName, int isKg, int isC
 		return res;
 		
 	}
-	
+
+
+	public int uploadSchoolPhoto(Connection conn, FileVo fileData) {
+		int res = 0;
+		String fIdx = "";
+		//1. 새로 등록되는 게시글의 파일 정보 저장
+		//	typeIdx값이 시퀀스 currval
+		if(fileData.getTypeIdx() == null) {
+			fIdx = "'k'||sc_kg_idx.currval";
+		//2. 수정할 때 사용자가 파일을 추가 등록해서 파일 정보 저장
+		//	수정할 게시글의 bdIdx값
+		}else {
+			fIdx = "'" + fileData.getTypeIdx() + "'" ;
+		}
+		
+		String sql = "insert into tb_file "
+				+ "(f_idx,type_idx,origin_file_name,rename_file_name,save_path) "
+				+ "values(sc_file_idx.nextval,"+fIdx+",?,?,?)";
+		
+		PreparedStatement pstm = null;
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, fileData.getOriginFileName());
+			pstm.setString(2, fileData.getRenameFileName());
+			pstm.setString(3, fileData.getSavePath());
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			throw new DataAccessException(ErrorCode.IF01, e);
+		}finally {
+			jdt.close(pstm);
+		}
+		
+		return res;
+	}
+		
 	
 	
 	
