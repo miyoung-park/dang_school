@@ -379,6 +379,9 @@ public class UserController extends HttpServlet {
 	}
 	
 	
+	
+	
+	
 	protected void modifyUserInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int res = 0;

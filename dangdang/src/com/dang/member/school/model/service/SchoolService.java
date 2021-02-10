@@ -159,7 +159,7 @@ public class SchoolService {
 	public int modifySchoolService(String kgName, int isKg, int isCafe, int isHotel, int isPickup, int isMedic, int isAcademy, int isSpa) {
 		Connection conn = jdt.getConnection();
 		int res = 0;
-		
+
 		
 		try {
 			res = schoolDao.modifySchoolService(conn, kgName, isKg, isCafe, isHotel, isPickup, isMedic, isAcademy, isSpa);
@@ -169,7 +169,6 @@ public class SchoolService {
 		}finally {
 			jdt.close(conn);
 		}
-		System.out.println("schoolServcie" + res);
 		return res ;
 		
 	}

@@ -301,29 +301,24 @@ public class SchoolController extends HttpServlet {
 	
 	
 	protected void modifySchoolService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-
-		int res = 0;
-		String modifyService = request.getParameter("schoolModifyService");
-		Map modifyServiceMap = gson.fromJson(modifyService, Map.class);
-		//String kgName = (String) modifyServiceMap.get("kgName");
 		
-	
-		String kgName = request.getParameter("kgName");
-		System.out.println(kgName);
-		int isKg = Integer.parseInt((String) modifyServiceMap.get("isKg"));
-		int isCafe = Integer.parseInt((String) modifyServiceMap.get("isCafe"));
-		int isHotel = Integer.parseInt((String) modifyServiceMap.get("isHotel"));
-		int isPickup = Integer.parseInt((String) modifyServiceMap.get("isPickup"));
-		int isMedic = Integer.parseInt((String) modifyServiceMap.get("isMedic"));
-		int isAcademy = Integer.parseInt((String) modifyServiceMap.get("isAcademy"));
-		int isSpa = Integer.parseInt((String) modifyServiceMap.get("isSpa"));
-		System.out.print(
-				isKg + "," + isCafe + "," + isHotel + "," + isPickup + "," + isMedic + "," + isAcademy + "," + isSpa);
+		int res = 0;
+		HttpSession session = request.getSession();
+		SchoolMember schoolMember = (SchoolMember) session.getAttribute("schoolMember");
+		String kgName = schoolMember.getKgName();
+
+		
+		//getParameter로 받아오는 value 값은 String을 return 하기 때문에 int로 parse진행
+		int isKg = Integer.parseInt(request.getParameter("isKg"));
+		int isCafe = Integer.parseInt(request.getParameter("isCafe"));
+		int isHotel = Integer.parseInt(request.getParameter("isHotel"));
+		int isPickup = Integer.parseInt(request.getParameter("isPickup"));
+		int isMedic = Integer.parseInt(request.getParameter("isMedic"));
+		int isAcademy = Integer.parseInt(request.getParameter("isAcademy"));
+		int isSpa = Integer.parseInt(request.getParameter("isSpa"));
 
 		res = schoolService.modifySchoolService(kgName, isKg, isCafe, isHotel, isPickup, isMedic, isAcademy, isSpa);
 
-		System.out.println("Controller " + res);
 		if(res > 0) {
 			
 			Service schoolService = new Service();
@@ -335,17 +330,25 @@ public class SchoolController extends HttpServlet {
 			schoolService.setIsMedic(isMedic);
 			schoolService.setIsAcademy(isAcademy);
 			schoolService.setIsSpa(isSpa);
-			System.out.println("schoolservice = " + schoolService);
-			request.setAttribute("schoolService", schoolService);
-			response.getWriter().print("success");
-
 			
+			//수정된 값을 다시 받아서 다시 세션에 저장해주기
+			request.getSession().setAttribute("schoolService", schoolService);
+			request.setAttribute("alertMsg", "서비스를 성공적으로 수정하였습니다.");
+			request.setAttribute("url", "/school/schoolprofile.do");
+			request.getRequestDispatcher("/WEB-INF/view/common/result.jsp").forward(request, response);
 			
-		}  */
+		} else {
+			request.setAttribute("alertMsg", "서비스 수정이 실패하였습니다.");
+			request.setAttribute("url", "/school/schoolprofile.do");
+			request.getRequestDispatcher("/WEB-INF/view/common/result.jsp").forward(request, response);
+		}
 		
 	
 		
 	}
+	
+	
+	
 	
 	protected void uploadSchoolPhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				int res = 0;

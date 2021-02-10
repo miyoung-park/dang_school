@@ -291,6 +291,7 @@
 		schoolModifyObj.kgId = kgId.value;
 		schoolModifyObj.kgName = kgName.value;
 		schoolModifyObj.kgAddress = kgAddress.value;
+		schoolModifyObj.kgTell = kgTell.value;
 		schoolModifyObj.kgEmail = kgEmail.value;
 		schoolModifyObj.kgOperateTime = kgOperateTime.value;
 		schoolModifyObj.kgNotice = kgNotice.value;
@@ -326,11 +327,11 @@
 		
 	}
 	
-//유치원 서비스 수정시 사용할 메소드	
-	let schoolModifyService =() =>{s
+/*유치원 서비스 수정시 사용할 메소드	
+	let schoolModifyService =() => {
 		
 		let schoolServiceObj = new Object();
-		schoolServiceObj.kgName = kgNameForService.value;
+		schoolServiceObj.kgName = kgName.value;
 		schoolServiceObj.isKg = isKg.value;
 		schoolServiceObj.isCafe = isCafe.value;
 		schoolServiceObj.isHotel = isHotel.value;
@@ -366,7 +367,7 @@
 		})
 
 		
-	}
+	} */
 	
 	
 	
