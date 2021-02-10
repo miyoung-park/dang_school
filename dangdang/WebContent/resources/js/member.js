@@ -101,7 +101,9 @@
 				return response.text(); /*controller 의 loginimpl에서 text값을 getwriter()*/	
 			}
 			throw new AsyncPageError(response.text()); /*200번코드가 아니면 catch 문으로 ! */
+			console.dir(text);
 		}).then((text) => { /* 위의 text() 값이 들어온다.*/
+			
 			if(text == 'fail'){
 				alert('아이디나 비밀번호를 확인하세요');
 				
@@ -109,9 +111,10 @@
 				alert('탈퇴한 회원입니다.');
 				location.href = '/user/login.do' //브라우저에서 요청해줘야 url이 바뀐다.
 			}else if(text == 'success'){
+				alert('로그인 되었습니다.');
 				location.href = urlToMyPage;	 
 			}else if(text == 'servicefail'){
-				alert('유치원의 서비스 조회 중 문제 발생');
+				alert('해당유치원 서비스 조회 중 문제 발생');
 			}
 		}).catch(error =>{
 			error.alertMsg();
@@ -208,7 +211,7 @@
 	}
 	
 	
-//회원정보 수정시 사용할 메소드
+//User 정보 수정시 사용할 메소드
 	let modifyInfo= () => {
 		
 	    
@@ -282,17 +285,17 @@
 	      }
 	}
 
-//유치원 정보 수정시 사용할 메소드
+//School 정보 수정시 사용할 메소드
 	let schoolModifyInfo = () =>{
 		let schoolModifyObj = new Object();
 		schoolModifyObj.kgId = kgId.value;
 		schoolModifyObj.kgName = kgName.value;
 		schoolModifyObj.kgAddress = kgAddress.value;
-		schoolModifyObj.kgTell = kgTell.value;
 		schoolModifyObj.kgEmail = kgEmail.value;
 		schoolModifyObj.kgOperateTime = kgOperateTime.value;
 		schoolModifyObj.kgNotice = kgNotice.value;
-
+		
+		
 		let url = "/school/modifyinfo.do";		
 		let headerObj = new Headers();
 		headerObj.append("content-type", "application/x-www-form-urlencoded");
@@ -317,27 +320,26 @@
 			}else{
 				alert('유치원정보 업데이트 중 오류발생');
 			}
-		})
+		});
 		
 		
 		
 	}
 	
 //유치원 서비스 수정시 사용할 메소드	
-	let schoolModifyService =() =>{
+	let schoolModifyService =() =>{s
 		
 		let schoolServiceObj = new Object();
 		schoolServiceObj.kgName = kgNameForService.value;
-		console.dir(kgName.value);
 		schoolServiceObj.isKg = isKg.value;
-		
 		schoolServiceObj.isCafe = isCafe.value;
 		schoolServiceObj.isHotel = isHotel.value;
 		schoolServiceObj.isPickup = isPickup.value;
 		schoolServiceObj.isMedic = isMedic.value;
 		schoolServiceObj.isAcademy = isAcademy.value;
 		schoolServiceObj.isSpa = isSpa.value;
-		console.dir(schoolServiceObj)
+		console.dir(schoolServiceObj);
+		console.dir(JSON.stringify(schoolServiceObj));
 		let url ="/school/modifyservice.do"
 		
 		let headerObj = new Headers();

@@ -11,6 +11,7 @@ import com.dang.common.jdbc.JDBCTemplate;
 import com.dang.common.util.file.FileVo;
 import com.dang.map.model.vo.Service;
 import com.dang.member.school.model.vo.SchoolMember;
+import com.dang.member.user.model.vo.UserMember;
 
 
 
@@ -25,11 +26,10 @@ public class SchoolDao {
 		SchoolMember schoolMember = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
+		String query = "select * from kindergarden where kg_id =? and kg_pw = ?";
 		
 		try{
-			
-			String query = "select * from kindergarden where kg_id =? and kg_pw = ?";
-			
+
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, kgId);
 			pstm.setString(2, kgPw);
@@ -41,7 +41,7 @@ public class SchoolDao {
 				schoolMember = new SchoolMember();
 				schoolMember.setKgName(rset.getString("kg_name"));
 				schoolMember.setKgId(rset.getString("kg_id"));
-				schoolMember.setKgId(rset.getString("kg_idx"));
+				schoolMember.setKgIdx(rset.getString("kg_idx"));
 				schoolMember.setKgPw(rset.getString("kg_pw"));
 				schoolMember.setKgAddress(rset.getString("kg_address"));
 				schoolMember.setKgTell(rset.getString("kg_tell"));
@@ -102,7 +102,7 @@ public class SchoolDao {
 	
 	
 	
-	public SchoolMember selectSchoolByName(Connection conn, String schoolName, String scholPhone) {
+	public SchoolMember findSchoolId(Connection conn, String schoolName, String schoolPhone) {
 		SchoolMember schoolMember = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
@@ -112,7 +112,7 @@ public class SchoolDao {
 		try {
 			pstm = conn.prepareStatement(query);
 			pstm.setString(1, schoolName);
-			pstm.setString(2, scholPhone);
+			pstm.setString(2, schoolPhone);
 			
 			rset = pstm.executeQuery();
 			
@@ -136,6 +136,59 @@ public class SchoolDao {
 		return schoolMember;
 		
 	}
+	
+	
+	
+	/*
+	
+	//해당 정보에 맞는 회원검색
+		public SchoolMember findSchoolPw(Connection conn, String kgId, String kgEmail) {
+			
+			SchoolMember schoolMember = null;
+			PreparedStatement pstm = null;
+			ResultSet rset = null;
+			
+			String query = "select * from kindergarden where kg_id = ? and kg_email = ?";
+			
+			try {
+				pstm = conn.prepareStatement(query);
+				pstm.setString(1, kgId);
+				pstm.setString(2, kgEmail);
+				
+				rset = pstm.executeQuery();
+				
+				//결과값이 있다면
+				if(rset.next()) {
+					schoolMember = new SchoolMember();
+					schoolMember.setKgName(rset.getString("kgName"));
+					schoolMember.setKgIdx(rset.getString("kgIdx"));
+					schoolMember.setKgId(rset.getString("kgId"));
+					schoolMember.setKgPw(rset.getString("kgPw"));
+					schoolMember.setKgAddress(rset.getString("kgAddress"));
+					schoolMember.setKgTell(rset.getString("kgTell"));
+					schoolMember.setKgOperateTime(rset.getString("kgOperateTime"));
+					schoolMember.setKgNotice(rset.getString("kgNotice"));
+					schoolMember.setKgGrade(rset.getString("kgGrade"));
+					schoolMember.setKgEmail(rset.getString("kgEmail"));
+				}
+				
+			} catch (SQLException e) {
+				throw new DataAccessException(ErrorCode.SM01, e);
+				
+			} finally {
+				jdt.close(rset, pstm);
+			}
+			System.out.println(schoolMember);
+			return schoolMember;	
+		
+		}
+		
+	
+	*/
+	
+	
+	
+	
 	
 	public int modifySchoolInfo(Connection conn, String kgId, String kgName, String kgAddress, String kgTell, String kgOperateTime, String kgNotice, String kgEmail ) {
 		
@@ -161,7 +214,7 @@ public class SchoolDao {
 		}finally {
 			jdt.close(pstm);
 		}
-
+		
 		return res;
 		
 	}
@@ -192,7 +245,7 @@ public int modifySchoolService(Connection conn, String kgName, int isKg, int isC
 		}finally {
 			jdt.close(pstm);
 		}
-		System.out.println("schoolDao" +res);
+		
 		return res;
 		
 	}
@@ -209,15 +262,17 @@ public int modifySchoolService(Connection conn, String kgName, int isKg, int isC
 		//	수정할 게시글의 bdIdx값
 		}else {
 			fIdx = "'" + fileData.getTypeIdx() + "'" ;
+			System.out.println(fIdx);
 		}
 		
-		String sql = "insert into tb_file "
-				+ "(f_idx,type_idx,origin_file_name,rename_file_name,save_path) "
+		
+		
+		String query = "insert into tb_file (f_idx,type_idx,origin_file_name,rename_file_name,save_path) "
 				+ "values(sc_file_idx.nextval,"+fIdx+",?,?,?)";
 		
 		PreparedStatement pstm = null;
 		try {
-			pstm = conn.prepareStatement(sql);
+			pstm = conn.prepareStatement(query);
 			pstm.setString(1, fileData.getOriginFileName());
 			pstm.setString(2, fileData.getRenameFileName());
 			pstm.setString(3, fileData.getSavePath());
@@ -227,7 +282,7 @@ public int modifySchoolService(Connection conn, String kgName, int isKg, int isC
 		}finally {
 			jdt.close(pstm);
 		}
-		
+		System.out.println(res);
 		return res;
 	}
 		

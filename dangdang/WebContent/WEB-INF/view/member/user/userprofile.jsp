@@ -92,7 +92,7 @@
 								<div id="kg_form">
 									<fieldset class="school_info info_form">
 										<legend>유치원정보</legend>
-										<h2 id="kg_info">${sessionScope.userMember.kgName}</h2>
+										<br><input type ="text" value="${sessionScope.userMember.kgName}" id="kg_info" name="kg_info" readonly>
 									</fieldset>
 								</div>
 							</div>

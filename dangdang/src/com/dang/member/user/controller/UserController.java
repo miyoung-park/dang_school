@@ -2,11 +2,10 @@ package com.dang.member.user.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 
 import java.util.Map;
-import java.util.UUID;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dang.common.code.ErrorCode;
 import com.dang.common.exception.ToAlertException;
+import com.dang.common.random.RandomString;
 import com.dang.member.user.model.service.UserService;
 import com.dang.member.user.model.vo.UserMember;
 import com.google.gson.Gson;
@@ -27,18 +27,24 @@ import com.google.gson.Gson;
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserService userService = new UserService();
+    
     Gson gson = new Gson();
    
     public UserController() {
         super();
        
     }
-
+    /**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String uri = request.getRequestURI();
 		String[] uriArr = uri.split("/");
+		
+		
 		switch(uriArr[uriArr.length-1]){
 		case "login.do" : login(request, response); //로그인 페이지 이동
 			break;
@@ -67,8 +73,7 @@ public class UserController extends HttpServlet {
 		case "withdraw.do" : withdrawUser(request, response); //회원탈퇴 실행
 			break;
 		case "modifyinfo.do" : modifyUserInfo(request, response); 
-		
-		
+			break;		
 		
 		
 		}
@@ -102,8 +107,8 @@ public class UserController extends HttpServlet {
 		
 		
 		String userId = (String) parsedLoginData.get("id"); //map객체의 id라는 key 값의 value 불러오기
-		String userPw = (String) parsedLoginData.get("pw");	//map객체의 pw라는 key 값의 value 불러오기
-	
+		String userPw = (String) parsedLoginData.get("pw");	//map객체의 pw라는 key 값의 value 불러오기 
+
 		//schoolDao -> schoolService을 거치며 schoolMember의 객체가 반환된다.
 		UserMember userMember = userService.memberAuthenticate(userId, userPw);
 
@@ -111,7 +116,6 @@ public class UserController extends HttpServlet {
 		if(userMember != null) {
 			if(userMember.getIsleave() != 1) {
 				request.getSession().setAttribute("userMember" , userMember); //회원정보가 있을 경우 해당 내용을 session에 저장.
-				request.setAttribute("alertMsg", "'댕댕아 놀면 뭐하니?'에 오신걸 환영합니다.");
 				response.getWriter().print("success"); 
 					
 			}else if(userMember.getIsleave() == 1){
@@ -301,12 +305,14 @@ public class UserController extends HttpServlet {
 		if(userMember != null) {
 			
 			//그 값을 다시 가져와서 비밀번호만 다시 세팅한 후 다시 업데이트 문으로 modify 해주기(modifyInfo 메소드 사용);
-			String newPw = UUID.randomUUID().toString();
-			System.out.println(newPw);
+			
+			//새로운 비밀번호 발급해주기
+			String newPw = RandomString.randomStr(3);
+			
 			//새로운 비밀번호로 password 다시 세팅
 			userMember.setPassword(newPw);
 			
-			//세팅된 비밀번호 포함 userMember정보 가져오기
+			//세팅된 비밀번호 포함 userMember정보 다시 가져오기
 			String userId = userMember.getUserId();
 			String userPw = userMember.getPassword();
 			String userName = userMember.getUserName();
@@ -322,7 +328,7 @@ public class UserController extends HttpServlet {
 				
 				request.getSession().setAttribute("validUserMember", userMember);
 				//해당 비밀번호를 포함한 이메일보내기
-				userService.authenticateEmail(userMember);
+				userService.finUserPwEmail(userMember);
 			
 				//세션이 더이상 필요하지 않으니 세션 삭제해주기
 				request.removeAttribute("validUserMember");
