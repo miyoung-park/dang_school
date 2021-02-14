@@ -251,38 +251,41 @@ public int modifySchoolService(Connection conn, String kgName, int isKg, int isC
 	}
 
 
-	public int uploadSchoolPhoto(Connection conn, FileVo fileData) {
+	public int uploadSchoolPhoto(Connection conn, FileVo schoolPhotoData, String kgIdx) {
 		int res = 0;
 		String fIdx = "";
-		//1. 새로 등록되는 게시글의 파일 정보 저장
-		//	typeIdx값이 시퀀스 currval
+		
+		
+		/* 1. 새로 등록되는 게시글의 파일 정보 저장
+		typeIdx값이 시퀀스 currval
 		if(fileData.getTypeIdx() == null) {
-			fIdx = "'k'||sc_kg_idx.currval";
+			fIdx = "'k'||kgIdx";
 		//2. 수정할 때 사용자가 파일을 추가 등록해서 파일 정보 저장
 		//	수정할 게시글의 bdIdx값
 		}else {
-			fIdx = "'" + fileData.getTypeIdx() + "'" ;
-			System.out.println(fIdx);
-		}
+			
+		}*/
+		
+		fIdx = "'k'||" + kgIdx;
 		
 		
 		
-		String query = "insert into tb_file (f_idx,type_idx,origin_file_name,rename_file_name,save_path) "
-				+ "values(sc_file_idx.nextval,"+fIdx+",?,?,?)";
+		String query = "insert into d_file (f_idx,type_idx,origin_file_name,rename_file_name,save_path) "
+				+ "values(sc_f_idx.nextval," + fIdx + ",?,?,?)";
 		
 		PreparedStatement pstm = null;
 		try {
 			pstm = conn.prepareStatement(query);
-			pstm.setString(1, fileData.getOriginFileName());
-			pstm.setString(2, fileData.getRenameFileName());
-			pstm.setString(3, fileData.getSavePath());
+			pstm.setString(1, schoolPhotoData.getOriginFileName());
+			pstm.setString(2, schoolPhotoData.getRenameFileName());
+			pstm.setString(3, schoolPhotoData.getSavePath());
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException(ErrorCode.IF01, e);
 		}finally {
 			jdt.close(pstm);
 		}
-		System.out.println(res);
+		
 		return res;
 	}
 		

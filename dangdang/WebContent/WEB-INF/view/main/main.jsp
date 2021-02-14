@@ -114,11 +114,12 @@
 
 		<!-- Footer -->
 		<footer id="footer">
-			
-			
-			
-			
-			
+			<ul class="icons">
+
+			</ul>
+			<ul class="copyright">
+				<li>&copy;댕댕아놀면뭐하니?</li>
+			</ul>
 		</footer>
 
 	</div>

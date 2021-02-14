@@ -98,117 +98,126 @@
 						<form action ="${context}/school/modifyservice.do?kgName=${sessionScope.schoolMember.kgName}" method="post" id="school_service_form"> <!-- action ="${context}/school/modifyservice.do" method="post" -->
 							<fieldset id="sort_school_service">
 								<h3> [제공서비스]</h3><br>
-							
-								<div id="kg_form">유치원
-									<div id = "kg_pro">
+								<div class ="service_list">
+								
+								</div>
+								<table class="kg_form">
+									<tr class = "kg_pro">
+									<td class="kg_service_list">유치원</td>
 										<c:choose>
 											<c:when test ="${sessionScope.schoolService.isKg == 0}">
-												<h3>제공<input type = "radio" name ="isKg" value="0"  checked="checked"></h3>
-												<h3>비제공<input type = "radio" name ="isKg" value="1"></h3>
+												<td>제공<input type = "radio" name ="isKg" value="0"  checked="checked"></td>
+												<td>비제공<input type = "radio" name ="isKg" value="1"></td>
 											</c:when>
 											<c:otherwise>
-												<h3>제공<input type = "radio"  name ="isKg" value="0"></h3>
-												<h3>비제공<input type = "radio" name ="isKg" value="1" checked="checked" ></h3>
+												<td>제공<input type = "radio"  name ="isKg" value="0"></td>
+												<td>비제공<input type = "radio" name ="isKg" value="1" checked="checked" ></td>
 											</c:otherwise>
 										</c:choose>
-									</div>
-								</div>
+									</tr>
+								</table>
 								
 							
-								<div id="cafe_form">카페
-									<div id = "cafe_pro">
+								<table class="kg_form">
+									<tr class = "kg_pro">
+									<td class="kg_service_list">카페</td>
 										<c:choose>
 											<c:when test ="${sessionScope.schoolService.isCafe == 0}">
-												<h3>제공<input type = "radio" name ="isCafe" value="0"  checked="checked"></h3>
-												<h3>비제공<input type = "radio" name ="isCafe" value="1"></h3>
+												<td>제공<input type = "radio" name ="isCafe" value="0"  checked="checked"></td>
+												<td>비제공<input type = "radio" name ="isCafe" value="1"></td>
 											</c:when>
 											<c:otherwise>
-												<h3>제공<input type = "radio"  name ="isCafe" value="0"></h3>
-												<h3>비제공<input type = "radio" name ="isCafe" value="1" checked="checked" ></h3>
+												<td>제공<input type = "radio"  name ="isCafe" value="0"></td>
+												<td>비제공<input type = "radio" name ="isCafe" value="1" checked="checked" ></td>
 											</c:otherwise>
 										</c:choose>
-									</div>
-								</div>
+									</tr>
+								</table>
 								
 								
-								<div id="hotel_form">호텔
-									<div id = "hotel_pro">
+								<table class="kg_form">
+									<tr class = "kg_pro">
+									<td class="kg_service_list">호텔</td>
 										<c:choose>
 											<c:when test ="${sessionScope.schoolService.isHotel == 0}">
-												<h3>제공<input type = "radio" name ="isHotel" value="0"  checked="checked"></h3>
-												<h3>비제공<input type = "radio" name ="isHotel" value="1"></h3>
+												<td>제공<input type = "radio" name ="isHotel" value="0"  checked="checked"></td>
+												<td>비제공<input type = "radio" name ="isHotel" value="1"></td>
 											</c:when>
 											<c:otherwise>
-												<h3>제공<input type = "radio"  name ="isHotel" value="0"></h3>
-												<h3>비제공<input type = "radio" name ="isHotel" value="1" checked="checked" ></h3>
+												<td>제공<input type = "radio"  name ="isHotel" value="0"></td>
+												<td>비제공<input type = "radio" name ="isHotel" value="1" checked="checked" ></td>
 											</c:otherwise>
 										</c:choose>
-									</div>
-								</div>
+									</tr>
+								</table>
 							
 								
-								<div id="pickup_form">픽업서비스
-									<div id = "pickup_pro">
+								<table class="kg_form">
+									<tr class = "kg_pro">
+									<td class ="kg_service_list">픽업서비스</td>
 										<c:choose>
 											<c:when test ="${sessionScope.schoolService.isPickup == 0}">
-												<h3>제공<input type = "radio" name ="isPickup" value="0"  checked="checked"></h3>
-												<h3>비제공<input type = "radio" name ="isPickup" value="1"></h3>
+												<td>제공<input type = "radio" name ="isPickup" value="0"  checked="checked"></td>
+												<td>비제공<input type = "radio" name ="isPickup" value="1"></td>
 											</c:when>
 											<c:otherwise>
-												<h3>제공<input type = "radio"  name ="isPickup" value="0"></h3>
-												<h3>비제공<input type = "radio" name ="isPickup" value="1" checked="checked" ></h3>
+												<td>제공<input type = "radio"  name ="isPickup" value="0"></td>
+												<td>비제공<input type = "radio" name ="isPickup" value="1" checked="checked" ></td>
 											</c:otherwise>
 										</c:choose>
-									</div>
-								</div>
+									</tr>
+								</table>
 								
 								
-								<div id="medical_form">메디컬 센터
-									<div id = "medical_pro">
+								<table class="kg_form">
+									<tr class = "kg_pro">
+									<td class ="kg_service_list">메디컬 센터</td>
 										<c:choose>
 											<c:when test ="${sessionScope.schoolService.isMedic == 0}">
-												<h3>제공<input type = "radio" name ="isMedic" value="0"  checked="checked"></h3>
-												<h3>비제공<input type = "radio" name ="isMedic" value="1"></h3>
+												<td>제공<input type = "radio" name ="isMedic" value="0"  checked="checked"></td>
+												<td>비제공<input type = "radio" name ="isMedic" value="1"></td>
 											</c:when>
 											<c:otherwise>
-												<h3>제공<input type = "radio"  name ="isMedic" value="0"></h3>
-												<h3>비제공<input type = "radio" name ="isMedic" value="1" checked="checked" ></h3>
+												<td>제공<input type = "radio"  name ="isMedic" value="0"></td>
+												<td>비제공<input type = "radio" name ="isMedic" value="1" checked="checked" ></td>
 											</c:otherwise>
 										</c:choose>
-									</div>
-								</div>
+									</tr>
+								</table>
 								
 								
-								<div id="academy_form">아카데미
-									<div id = "academy_pro">
+								<table class="kg_form">
+									<tr class = "kg_pro">
+									<td class="kg_service_list">아카데미</td>
 										<c:choose>
 											<c:when test ="${sessionScope.schoolService.isAcademy == 0}">
-												<h3>제공<input type = "radio" name ="isAcademy" value="0"  checked="checked"></h3>
-												<h3>비제공<input type = "radio" name ="isAcademy" value="1"></h3>
+												<td>제공<input type = "radio" name ="isAcademy" value="0"  checked="checked"></td>
+												<td>비제공<input type = "radio" name ="isAcademy" value="1"></td>
 											</c:when>
 											<c:otherwise>
-												<h3>제공<input type = "radio"  name ="isAcademy" value="0"></h3>
-												<h3>비제공<input type = "radio" name ="isAcademy" value="1" checked="checked" ></h3>
+												<td>제공<input type = "radio"  name ="isAcademy" value="0"></td>
+												<td>비제공<input type = "radio" name ="isAcademy" value="1" checked="checked" ></td>
 											</c:otherwise>
 										</c:choose>
-									</div>
-								</div>
+									</tr>
+								</table>
 								
 								
-								<div id="spa_form">스파
-									<div id = "spa_pro">
+								<table class="kg_form">
+									<tr class = "kg_pro">
+									<td class="kg_service_list">스파</td>
 									<c:choose>
 										<c:when test ="${sessionScope.schoolService.isSpa == 0}">
-											<h3>제공<input type = "radio"  name ="isSpa" value="0"  checked="checked"></h3>
-											<h3>비제공<input type = "radio" name ="isSpa" value="1"></h3>
+											<td>제공<input type = "radio"  name ="isSpa" value="0"  checked="checked"></td>
+											<td>비제공<input type = "radio" name ="isSpa" value="1"></td>
 										</c:when>
 										<c:otherwise>
-											<h3>제공<input type = "radio"  name ="isSpa" value="0"></h3>
-											<h3>비제공<input type = "radio" name ="isSpa" value="1" checked="checked" ></h3>
+											<td>제공<input type = "radio"  name ="isSpa" value="0"></td>
+											<td>비제공<input type = "radio" name ="isSpa" value="1" checked="checked" ></td>
 										</c:otherwise>
 									</c:choose>
-									</div>
-								</div>
+									</tr>
+								</table>
 								
 								
 								
@@ -220,10 +229,10 @@
 					
 					
 					
-					<form action="${context}/school/uploadphoto.do" method="post" id="school_photo_form">
+					<form action="${context}/school/uploadphoto.do" method="post" id="school_photo_form" enctype="multipart/form-data">
 						<div>
-							<h3>유치원사진</h3><br>
-							<label><input type ="file" name ="files" id="kg_photo" multiple/></label>
+							<h3>[유치원사진]</h3><br>
+							<input type ="file" name ="files" id="kg_photo" multiple/><!-- 여러개 파일 선택 속성 -->
 						</div>
 						<div id="photo_border">
 							사진 첨부
@@ -255,10 +264,10 @@
 
 			</ul>
 			<ul class="copyright">
-				<li>&copy; Untitled</li>
-				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				<li>&copy;댕댕아놀면뭐하니?</li>
 			</ul>
 		</footer>
+	
 
 	</div>
 
@@ -271,18 +280,6 @@
 	<script src="../../../../resources/js/util.js"></script>
 	<script src="../../../../resources/js/main.js"></script>
 	<script src="../../../../resources/js/member.js"></script>
-	<script type="text/javascript">
-	
-	let pop = () =>{
-		let url = '/school/serviceModify.do';
-		let name ='service popup';
-		let option = "width =500, height =400, top =100, left =100, location=yes";
-		
-		window.open(url, name, option);
-	}
-	
-	
-	</script>
 	
 </body>
 </html>

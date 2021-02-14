@@ -112,11 +112,11 @@ public class UserController extends HttpServlet {
 		//schoolDao -> schoolService을 거치며 schoolMember의 객체가 반환된다.
 		UserMember userMember = userService.memberAuthenticate(userId, userPw);
 
-		
 		if(userMember != null) {
-			if(userMember.getIsleave() != 1) {
+			System.out.println(userMember.getIsleave());
+			if(userMember.getIsleave() == 0) {
 				request.getSession().setAttribute("userMember" , userMember); //회원정보가 있을 경우 해당 내용을 session에 저장.
-				response.getWriter().print("success"); 
+				response.getWriter().print("success");
 					
 			}else if(userMember.getIsleave() == 1){
 				response.getWriter().print("withdraw");
@@ -198,11 +198,7 @@ public class UserController extends HttpServlet {
 		//persistUser로 저장해두었던 session값 가져와서 userMember에 넣어주기
 		UserMember userMember = (UserMember) request.getSession().getAttribute("persistUser");
 		
-		//persistUser가 없거나, 브라우저를 종료했거나, 재요청없이 30분이 지났을 경우 혹은 회원가입이 완료된 경우에는 회원가입 진행 X
-		if(userMember == null) {
-			throw new ToAlertException(ErrorCode.AUTH02);
-		}
-		
+
 		int res = userService.insertUserMembers(userMember);
 		
 		if(res > 0) {
@@ -213,11 +209,7 @@ public class UserController extends HttpServlet {
 			request.setAttribute("alertMsg", "회원가입을 축하합니다."); //alertMsg 설정
 			request.setAttribute("url", "/user/login.do"); // url 설정
 			request.getRequestDispatcher("/WEB-INF/view/common/result.jsp").forward(request, response);
-		} else {
-			request.setAttribute("alertMsg", "회원가입에 실패하였습니다.");
-			request.setAttribute("url", "/main/main.do");
-			
-		}
+		} 
 	}
 	
 	

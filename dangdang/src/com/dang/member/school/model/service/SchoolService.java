@@ -177,17 +177,17 @@ public class SchoolService {
 
 
 
-	public int uploadSchoolPhoto(HttpServletRequest request) {
+	public int uploadSchoolPhoto(SchoolMember schoolMember , HttpServletRequest request) {
 		Connection conn = jdt.getConnection();
 		int res = 0;
-		
+		String kgIdx = schoolMember.getKgIdx();
 		//게시글 저장
 		Map<String,List> PhotoData = new FileUtil().fileUpload(request);
 		
 		try {
 			
-			for(FileVo fileData : (List<FileVo>)PhotoData.get("fileData")) {
-				schoolDao.uploadSchoolPhoto(conn, fileData);
+			for(FileVo schoolPhotoData : (List<FileVo>)PhotoData.get("fileData")) {
+				schoolDao.uploadSchoolPhoto(conn, schoolPhotoData, kgIdx);
 			}
 			jdt.commit(conn);
 		}catch(DataAccessException e) {
