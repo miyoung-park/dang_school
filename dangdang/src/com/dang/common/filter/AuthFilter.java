@@ -83,6 +83,11 @@ public class AuthFilter implements Filter {
 					if(session.getAttribute("schoolMember") != null) {
 						throw new ToAlertException(ErrorCode.AUTH01);
 					}break;
+					
+				case "kinderclass.do":
+					if(session.getAttribute("schoolMember") == null) {
+						throw new ToAlertException(ErrorCode.AUTH01);
+					}break;
 
 				}
 				break;
@@ -126,6 +131,7 @@ public class AuthFilter implements Filter {
 					break;
 				}
 				break;	
+				
 				case "review":
 					switch (uriArr[2]) {
 					case "write.do":
@@ -140,18 +146,24 @@ public class AuthFilter implements Filter {
 						break;
 					}
 					break;
+
+				case "diary":
+					switch (uriArr[2]) {
+					case "kindergardenview.do":
+						if (session.getAttribute("schoolMember") == null) {
+							throw new ToAlertException(ErrorCode.AUTH09);
+						}
+						break;
+					case "userview.do":
+						if (session.getAttribute("userMember") == null) {
+							throw new ToAlertException(ErrorCode.AUTH09);
+						}
+						break;
+					}
+					break;
+					
 				case "reservation":
 					switch (uriArr[2]) {
-					case "reservation.do":
-						if (session.getAttribute("userMember") == null) {
-							throw new ToAlertException(ErrorCode.AUTH05);
-						}
-						break;
-					case "mngngRsrvt.do":
-						if (session.getAttribute("schoolMember") == null) {
-							throw new ToAlertException(ErrorCode.AUTH06);
-						}
-						break;
 					case "calendar.do":
 						if (session.getAttribute("schoolMember") == null) {
 							throw new ToAlertException(ErrorCode.AUTH07);
