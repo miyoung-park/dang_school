@@ -236,12 +236,8 @@ public class UserController extends HttpServlet {
 		
 		//userMember가 null이면 없는거고 null이 아니라면 있는 것 !
 		//id가 있으면 안되는 상황이기 때문에!
-		if(userMember == null) {
-			response.getWriter().print("available");//사용가능
-		}else {
-			response.getWriter().print("unavailable");//사용불가
-		}
-		
+		String result = (userMember == null) ? "available" : "unavailable"; // userMember가 null이면 'available', 아니면 'unavailable'
+		response.getWriter().print(result);
 		
 		
 	}
